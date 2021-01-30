@@ -32,7 +32,7 @@ export class ChartComponent {
   public lineChartPlugins2 = [];
 
   constructor(public dataService: DataService) {
-    const form = this.dataService.linguisticTerms.controls;
+    const form = this.dataService.linguisticTermsForm.controls;
     const data = [];
     const labels = [];
 
@@ -70,10 +70,10 @@ export class ChartComponent {
     norm.forEach((e, inx) => {
       const subData = [];
       e.forEach((el, index) => {
-        labels1.push(`${+el.toFixed(1)}`);
+        labels1.push(`${+el.toFixed(2)}`);
         subData.push({
           y: index === 1 ? 1 : 0,
-          x: `${+el.toFixed(1)}`
+          x: `${+el.toFixed(2)}`
         });
       });
       data1.push({

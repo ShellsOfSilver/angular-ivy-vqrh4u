@@ -9,7 +9,8 @@ import { ChartComponent } from "./pages/chart/chart.component";
 })
 export class DataService {
   initFormGroup: FormGroup;
-  linguisticTerms: FormArray;
+  linguisticTermsForm: FormArray;
+  expertMatrixForm: FormArray;
 
   constructor(private _formBuilder: FormBuilder, public dialog: MatDialog) {}
 
@@ -23,19 +24,19 @@ export class DataService {
 
   setLinguisticTerms() {
     const col = this.initFormGroup.get("numberLT").value;
-    this.linguisticTerms = new FormArray([]);
+    this.linguisticTermsForm = new FormArray([]);
 
     for (let i = 0; i < col; i++) {
-      this.linguisticTerms.push(this.getLinguisticTerm());
+      this.linguisticTermsForm.push(this.getLinguisticTerm());
     }
   }
 
   getLinguisticTermByIndex(index: number) {
-    return this.linguisticTerms.at(index) as FormGroup;
+    return this.linguisticTermsForm.at(index) as FormGroup;
   }
 
   getNormLinguisticTerms() {
-    const form = this.linguisticTerms.controls;
+    const form = this.linguisticTermsForm.controls;
     const data = [];
     const data1D = [];
 
@@ -83,7 +84,7 @@ export class DataService {
 
   setLinguisticRandom() {
     let index = 0;
-    for (let control of this.linguisticTerms.controls) {
+    for (let control of this.linguisticTermsForm.controls) {
       index++;
       control.setValue({
         fullName: ["Full Name " + index],

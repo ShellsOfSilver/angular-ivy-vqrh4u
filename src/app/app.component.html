@@ -3,9 +3,13 @@
     <ng-template matStepLabel>Init</ng-template>
     <my-init></my-init>
   </mat-step>
-  <mat-step [stepControl]="dataService.linguisticTerms">
+  <mat-step [stepControl]="dataService.linguisticTermsForm">
     <ng-template matStepLabel>Linguistic terms</ng-template>
     <my-linguistic-terms></my-linguistic-terms>
+  </mat-step>
+  <mat-step [stepControl]="dataService.expertMatrixForm">
+    <ng-template matStepLabel>Matrix of expert assessments</ng-template>
+    <my-expert-matrix></my-expert-matrix>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Done</ng-template>

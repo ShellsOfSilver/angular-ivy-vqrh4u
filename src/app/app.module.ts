@@ -57,6 +57,7 @@ import { AppComponent } from "./app.component";
 import { InitComponent } from "./pages/init/init.component";
 import { LinguisticTermsComponent } from "./pages/linguistic-terms/linguistic-terms.component";
 import { ChartComponent } from "./pages/chart/chart.component";
+import { ExpertMatrixComponent } from "./pages/expert-matrix/expert-matrix.component";
 
 @NgModule({
   imports: [
@@ -116,7 +117,8 @@ import { ChartComponent } from "./pages/chart/chart.component";
     AppComponent,
     InitComponent,
     LinguisticTermsComponent,
-    ChartComponent
+    ChartComponent,
+    ExpertMatrixComponent
   ],
   bootstrap: [AppComponent],
   entryComponents: [ChartComponent]

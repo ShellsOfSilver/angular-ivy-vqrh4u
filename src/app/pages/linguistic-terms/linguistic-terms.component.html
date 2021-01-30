@@ -1,9 +1,9 @@
 <div
-  *ngIf="dataService.linguisticTerms?.controls?.length"
+  *ngIf="dataService.linguisticTermsForm?.controls?.length"
   class="terms-container"
 >
   <form
-    *ngFor="let term of dataService.linguisticTerms.controls; let i = index"
+    *ngFor="let term of dataService.linguisticTermsForm.controls; let i = index"
     [formGroup]="dataService.getLinguisticTermByIndex(i)"
   >
     <mat-card>
@@ -60,6 +60,6 @@
     Set random value
   </button>
   <button mat-stroked-button matStepperNext>
-    Set linguistic terms
+    Set matrix of expert assessments
   </button>
 </div>
