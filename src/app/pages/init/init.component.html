@@ -3,7 +3,7 @@
     <mat-label>Number of alternatives</mat-label>
     <input
       matInput
-      placeholder="Number of alternatives"
+      placeholder="for example: 4"
       formControlName="numberAlternatives"
       type="number"
       required
@@ -13,7 +13,7 @@
     <mat-label>Number of criteria</mat-label>
     <input
       matInput
-      placeholder="Number of criteria"
+      placeholder="for example: 8"
       formControlName="numberCriteria"
       type="number"
       required
@@ -24,13 +24,23 @@
     <mat-label>Number of LT</mat-label>
     <input
       matInput
-      placeholder="Number of LT"
+      placeholder="for example: 5"
       formControlName="numberLT"
       type="number"
       required
     />
   </mat-form-field>
-  <div>
-    <button mat-stroked-button matStepperNext>Next</button>
-  </div>
 </form>
+
+<div class="bottom-btn">
+  <button mat-stroked-button (click)="dataService.setInitRandom()">
+    Set random value
+  </button>
+  <button
+    mat-stroked-button
+    matStepperNext
+    (click)="dataService.setLinguisticTerms()"
+  >
+    Set linguistic terms
+  </button>
+</div>

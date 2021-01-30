@@ -3,6 +3,10 @@
     <ng-template matStepLabel>Init</ng-template>
     <my-init></my-init>
   </mat-step>
+  <mat-step [stepControl]="dataService.linguisticTerms">
+    <ng-template matStepLabel>Linguistic terms</ng-template>
+    <my-linguistic-terms></my-linguistic-terms>
+  </mat-step>
   <mat-step>
     <ng-template matStepLabel>Done</ng-template>
     <p>You are now done.</p>

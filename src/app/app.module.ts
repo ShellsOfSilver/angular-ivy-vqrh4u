@@ -54,6 +54,7 @@ import { OverlayModule } from "@angular/cdk/overlay";
 
 import { AppComponent } from "./app.component";
 import { InitComponent } from "./pages/init/init.component";
+import { LinguisticTermsComponent } from "./pages/linguistic-terms/linguistic-terms.component";
 
 @NgModule({
   imports: [
@@ -108,7 +109,7 @@ import { InitComponent } from "./pages/init/init.component";
     MatSidenavModule,
     MatNativeDateModule
   ],
-  declarations: [AppComponent, InitComponent],
+  declarations: [AppComponent, InitComponent, LinguisticTermsComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
