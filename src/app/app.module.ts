@@ -58,6 +58,7 @@ import { InitComponent } from "./pages/init/init.component";
 import { LinguisticTermsComponent } from "./pages/linguistic-terms/linguistic-terms.component";
 import { ChartComponent } from "./pages/chart/chart.component";
 import { ExpertMatrixComponent } from "./pages/expert-matrix/expert-matrix.component";
+import { IntervalMatrixComponent } from "./pages/interval-matrix/interval-matrix.component";
 
 @NgModule({
   imports: [
@@ -118,7 +119,8 @@ import { ExpertMatrixComponent } from "./pages/expert-matrix/expert-matrix.compo
     InitComponent,
     LinguisticTermsComponent,
     ChartComponent,
-    ExpertMatrixComponent
+    ExpertMatrixComponent,
+    IntervalMatrixComponent
   ],
   bootstrap: [AppComponent],
   entryComponents: [ChartComponent]

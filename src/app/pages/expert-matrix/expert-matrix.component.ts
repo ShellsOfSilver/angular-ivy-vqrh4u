@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 
 import { DataService } from "../../data.service";
 
@@ -8,5 +8,7 @@ import { DataService } from "../../data.service";
   styleUrls: ["./expert-matrix.component.css"]
 })
 export class ExpertMatrixComponent {
+  @Input() stepper;
+
   constructor(public dataService: DataService) {}
 }

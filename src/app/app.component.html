@@ -9,7 +9,13 @@
   </mat-step>
   <mat-step [stepControl]="dataService.expertMatrixForm">
     <ng-template matStepLabel>Matrix of expert assessments</ng-template>
-    <my-expert-matrix></my-expert-matrix>
+    <my-expert-matrix [stepper]="stepper"></my-expert-matrix>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel
+      >Matrix of interval estimates of LT of oscillatory type</ng-template
+    >
+    <my-interval-matrix></my-interval-matrix>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Done</ng-template>
