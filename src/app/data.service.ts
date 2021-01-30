@@ -246,7 +246,6 @@ export class DataService {
       });
       dataSource.push(sub);
     }
-    console.log(normList);
     this.trapezoidalMatrixTable = {
       columns,
       dataSource
