@@ -117,6 +117,51 @@ export class DataService {
     this.resultMatrixTable = null;
     const method = this.aggregationMethodsForm.value;
     const alpha = method.alpha;
+
+    const numberCriteria = this.initFormGroup.get("numberCriteria").value;
+    const numberAlternatives = this.initFormGroup.get("numberAlternatives")
+      .value;
+
+    const data = [];
+
+    this.linguisticTermsForm.value.forEach(e => {
+      data.push(e.shortName);
+    });
+
+    const columns = ["none"];
+    const dataSource = [];
+    for (let i = 0; i < numberCriteria; i++) {
+      columns.push(`Q${i + 1}`);
+    }
+    const intervalData = this.trapezoidalMatrixTable.dataSource;
+    for (let i = 0; i < numberAlternatives; i++) {
+      const sub = {};
+      columns.forEach((e, ix) => {
+        if (e === "none") {
+          sub[e] = {
+            data: `E${i + 1}`,
+            start: true,
+            id: `${i}_${ix}`
+          };
+        } else {
+          const el = (Object.values(intervalData[i]).find(
+            (e: any) => e.id === `${i}_${ix}`
+          ) as any).data;
+          const elements = el.substring(2, el.length - 2).split(" ");
+          const res = [
+            +(alpha * (+elements[1] - +elements[0]) + +elements[0]).toFixed(3),
+            +(+elements[3] - alpha * (+elements[3] - +elements[2])).toFixed(3)
+          ];
+          sub[e] = {
+            data: `[ ${res.join(" ")} ]`,
+            id: `${i}_${ix}`
+          };
+        }
+      });
+      dataSource.push(sub);
+    }
+
+    console.log(alpha);
     switch (method.method) {
       case "Aggregation of generalized trapezoidal LT":
         console.log(1);
@@ -128,6 +173,11 @@ export class DataService {
         console.log(2);
         break;
     }
+
+    this.resultMatrixTable = {
+      columns,
+      dataSource
+    };
   }
 
   getLinguisticTermByIndex(index: number) {
@@ -259,7 +309,9 @@ export class DataService {
             const inx = data.indexOf(elements[0]);
             res = normList[inx];
             sub[e] = {
-              data: `[ ${res[0]} ${res[1]} ${res[1]} ${res[res.length - 1]} ]`,
+              data: `[ ${res[0].toFixed(2)} ${res[1].toFixed(
+                2
+              )} ${res[1].toFixed(2)} ${res[res.length - 1].toFixed(2)} ]`,
               id: `${i}_${ix}`
             };
           } else {
@@ -269,9 +321,9 @@ export class DataService {
             });
 
             sub[e] = {
-              data: `[ ${res[0]} ${res[1]} ${res[res.length - 2]} ${
-                res[res.length - 1]
-              } ]`,
+              data: `[ ${res[0].toFixed(2)} ${res[1].toFixed(2)} ${res[
+                res.length - 2
+              ].toFixed(2)} ${res[res.length - 1].toFixed(2)} ]`,
               id: `${i}_${ix}`
             };
           }
@@ -454,8 +506,8 @@ export class DataService {
   setInitRandom() {
     this.initFormGroup.setValue({
       numberAlternatives: 4,
-      numberCriteria: 6,
-      numberLT: 4
+      numberCriteria: 8,
+      numberLT: 5
     });
   }
 }

@@ -70,10 +70,10 @@ export class ChartComponent {
     norm.forEach((e, inx) => {
       const subData = [];
       e.forEach((el, index) => {
-        labels1.push(`${+el.toFixed(2)}`);
+        labels1.push(`${(+el).toFixed(2)}`);
         subData.push({
           y: index === 1 ? 1 : 0,
-          x: `${+el.toFixed(2)}`
+          x: `${(+el).toFixed(2)}`
         });
       });
       data1.push({

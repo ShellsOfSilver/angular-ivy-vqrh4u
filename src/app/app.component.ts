@@ -32,7 +32,8 @@ export class AppComponent implements OnInit {
               stepper.next();
               stepper.next();
               this.dataService.setAggregationMethods();
-               stepper.next();
+              this.dataService.calcMethod();
+              stepper.next();
             }, 200);
           }, 200);
         }, 200);
