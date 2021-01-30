@@ -291,12 +291,14 @@ export class DataService {
             const subIx = data.indexOf(terms[1]);
             if ("above" === terms[0]) {
               sub[e] = {
-                data: `{ ${terms[1]} ${data[subIx + 1]} }`,
+                data: `{ ${terms[1]} ${data
+                  .slice(subIx + 1, data.length)
+                  .join(" ")} }`,
                 id: `${i}_${ix}`
               };
             } else if ("below" === terms[0]) {
               sub[e] = {
-                data: `{ ${data[subIx - 1]} ${terms[1]} }`,
+                data: `{ ${data.slice(0, subIx).join(" ")} ${terms[1]} }`,
                 id: `${i}_${ix}`
               };
             } else {
@@ -306,8 +308,12 @@ export class DataService {
               };
             }
           } else if (terms.length === 4) {
+            const subIx1 = data.indexOf(terms[1]);
+            const subIx2 = data.indexOf(terms[3]);
             sub[e] = {
-              data: `{ ${terms[1]} ${terms[3]} }`,
+              data: `{ ${data
+                .slice(Math.min(subIx1, subIx2), Math.max(subIx1, subIx2) + 1)
+                .join(" ")} }`,
               id: `${i}_${ix}`
             };
           } else {
