@@ -31,6 +31,10 @@ export class DataService {
     columns: Array<string>;
     dataSource: any;
   };
+  resultMatrixTable: {
+    columns: Array<string>;
+    dataSource: any;
+  };
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -101,7 +105,7 @@ export class DataService {
   setAggregationMethods() {
     this.aggregationMethodsForm = this._formBuilder.group({
       alpha: [0.5, [Validators.min(0), Validators.max(1)]],
-      method: ["", Validators.required]
+      method: ["Aggregation of generalized trapezoidal LT", Validators.required]
     });
   }
 
@@ -110,7 +114,20 @@ export class DataService {
   }
 
   calcMethod() {
-    console.log("--------------");
+    this.resultMatrixTable = null;
+    const method = this.aggregationMethodsForm.value;
+    const alpha = method.alpha;
+    switch (method.method) {
+      case "Aggregation of generalized trapezoidal LT":
+        console.log(1);
+        break;
+      case "Pessimistic position":
+        console.log(1.1);
+        break;
+      case "Optimistic position":
+        console.log(2);
+        break;
+    }
   }
 
   getLinguisticTermByIndex(index: number) {

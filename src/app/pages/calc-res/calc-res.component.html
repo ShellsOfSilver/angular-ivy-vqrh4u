@@ -1,6 +1,6 @@
-<form *ngIf="dataService.trapezoidalMatrixTable" style="overflow: auto;">
-	<table mat-table [dataSource]="dataService.trapezoidalMatrixTable.dataSource" class="mat-elevation-z8">
-		<ng-container *ngFor="let column of dataService.trapezoidalMatrixTable.columns" [matColumnDef]="column">
+<form *ngIf="dataService.resultMatrixTable" style="overflow: auto;">
+	<table mat-table [dataSource]="dataService.resultMatrixTable.dataSource" class="mat-elevation-z8">
+		<ng-container *ngFor="let column of dataService.resultMatrixTable.columns" [matColumnDef]="column">
 			<th mat-header-cell *matHeaderCellDef>
 				{{column === 'none' ? '' : column}}
 			</th>
@@ -9,8 +9,8 @@
 			</td>
 		</ng-container>
 
-		<tr mat-header-row *matHeaderRowDef="dataService.trapezoidalMatrixTable.columns"></tr>
-		<tr mat-row *matRowDef="let row; columns: dataService.trapezoidalMatrixTable.columns;"></tr>
+		<tr mat-header-row *matHeaderRowDef="dataService.resultMatrixTable.columns"></tr>
+		<tr mat-row *matRowDef="let row; columns: dataService.resultMatrixTable.columns;"></tr>
 	</table>
 </form>
 <div class="bottom-btn" style="margin-top: 10px;">
