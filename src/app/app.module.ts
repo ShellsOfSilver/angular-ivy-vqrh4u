@@ -7,6 +7,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatStepperModule } from "@angular/material/stepper";
 
 import { AppComponent } from "./app.component";
+import { InitComponent } from "./pages/init/init.component";
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { AppComponent } from "./app.component";
     MatButtonModule,
     MatStepperModule
   ],
-  declarations: [AppComponent],
+  declarations: [AppComponent, InitComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
