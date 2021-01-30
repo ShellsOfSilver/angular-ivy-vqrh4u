@@ -1,1 +1,25 @@
-as
+<table
+  mat-table
+  [dataSource]="dataService.expertMatrixTable.dataSource"
+  class="mat-elevation-z8"
+  *ngIf="dataService.expertMatrixTable"
+>
+  <ng-container
+    *ngFor="let column of dataService.expertMatrixTable.columns"
+    [matColumnDef]="column"
+  >
+    <th mat-header-cell *matHeaderCellDef>
+      {{column === 'none' ? '' : column}}
+    </th>
+    <td mat-cell *matCellDef="let element">{{element[column]}}</td>
+  </ng-container>
+
+  <tr
+    mat-header-row
+    *matHeaderRowDef="dataService.expertMatrixTable.columns"
+  ></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: dataService.expertMatrixTable.columns;"
+  ></tr>
+</table>

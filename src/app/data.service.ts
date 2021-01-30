@@ -11,6 +11,10 @@ export class DataService {
   initFormGroup: FormGroup;
   linguisticTermsForm: FormArray;
   expertMatrixForm: FormArray;
+  expertMatrixTable: {
+    columns: Array<string>;
+    dataSource: any;
+  };
 
   constructor(private _formBuilder: FormBuilder, public dialog: MatDialog) {}
 
@@ -20,6 +24,40 @@ export class DataService {
       numberCriteria: [""],
       numberLT: [""]
     });
+  }
+
+  setExpertMatrix() {
+    this.expertMatrixTable = null;
+
+    const numberCriteria = this.initFormGroup.get("numberCriteria").value;
+    const numberAlternatives = this.initFormGroup.get("numberAlternatives")
+      .value;
+
+    const columns = ["none"];
+    const dataSource = [];
+
+    for (let i = 0; i < numberCriteria; i++) {
+      columns.push(`Q${i + 1}`);
+    }
+
+    for (let i = 0; i < numberAlternatives; i++) {
+      const sub = {};
+
+      columns.forEach(e => {
+        if (e === "none") {
+          sub[e] = `E${i + 1}`;
+        } else {
+          sub[e] = i;
+        }
+      });
+      dataSource.push(sub);
+    }
+
+    this.expertMatrixTable = {
+      columns,
+      dataSource
+    };
+    console.log(this.expertMatrixTable);
   }
 
   setLinguisticTerms() {

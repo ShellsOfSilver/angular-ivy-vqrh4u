@@ -59,7 +59,11 @@
   <button mat-stroked-button (click)="dataService.setLinguisticRandom()">
     Set random value
   </button>
-  <button mat-stroked-button matStepperNext>
+  <button
+    mat-stroked-button
+    matStepperNext
+    (click)="dataService.setExpertMatrix()"
+  >
     Set matrix of expert assessments
   </button>
 </div>
