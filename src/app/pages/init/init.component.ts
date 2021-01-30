@@ -8,5 +8,5 @@ import { DataService } from "../../data.service";
   styleUrls: ["./init.component.css"]
 })
 export class InitComponent {
-  constructor(private dataService: DataService) {}
+  constructor(public dataService: DataService) {}
 }

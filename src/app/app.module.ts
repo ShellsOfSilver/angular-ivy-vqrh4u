@@ -28,8 +28,29 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTableModule } from "@angular/material/table";
 import { MatSortModule } from "@angular/material/sort";
 import { MatGridListModule } from "@angular/material/grid-list";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatNativeDateModule } from "@angular/material/core";
 
 import { CdkStepperModule } from "@angular/cdk/stepper";
+
+import { A11yModule } from "@angular/cdk/a11y";
+import { ClipboardModule } from "@angular/cdk/clipboard";
+import { DragDropModule } from "@angular/cdk/drag-drop";
+import { PortalModule } from "@angular/cdk/portal";
+import { ScrollingModule } from "@angular/cdk/scrolling";
+import { CdkTableModule } from "@angular/cdk/table";
+import { CdkTreeModule } from "@angular/cdk/tree";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatListModule } from "@angular/material/list";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatRadioModule } from "@angular/material/radio";
+import { MatSelectModule } from "@angular/material/select";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatTreeModule } from "@angular/material/tree";
+import { OverlayModule } from "@angular/cdk/overlay";
 
 import { AppComponent } from "./app.component";
 import { InitComponent } from "./pages/init/init.component";
@@ -40,8 +61,26 @@ import { InitComponent } from "./pages/init/init.component";
     CommonModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    OverlayModule,
+    MatListModule,
+    MatDialogModule,
+    MatTreeModule,
+    MatTooltipModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatCheckboxModule,
     FormsModule,
+    CdkTreeModule,
     MatSliderModule,
+    CdkTableModule,
+    PortalModule,
+    ScrollingModule,
+    A11yModule,
+    DragDropModule,
+    ClipboardModule,
     MatButtonModule,
     MatStepperModule,
     MatFormFieldModule,
@@ -65,7 +104,9 @@ import { InitComponent } from "./pages/init/init.component";
     MatToolbarModule,
     MatTableModule,
     MatSortModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSidenavModule,
+    MatNativeDateModule
   ],
   declarations: [AppComponent, InitComponent],
   bootstrap: [AppComponent]
