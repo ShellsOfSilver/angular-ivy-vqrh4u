@@ -290,22 +290,12 @@ export class DataService {
                 id: `${i}_${ix}`
               };
             }
-          }
-          // else if (terms.length === 4) {
-          //   if (terms[0] !== "within") {
-          //     valid = false;
-          //   }
-          //   if (data.indexOf(terms[1]) === -1) {
-          //     valid = false;
-          //   }
-          //   if (terms[2] !== "and") {
-          //     valid = false;
-          //   }
-          //   if (data.indexOf(terms[3]) === -1) {
-          //     valid = false;
-          //   }
-          // }
-          else {
+          } else if (terms.length === 4) {
+            sub[e] = {
+              data: `{ ${terms[1]} ${terms[3]} }`,
+              id: `${i}_${ix}`
+            };
+          } else {
             sub[e] = {
               data: "{ }",
               id: `${i}_${ix}`
