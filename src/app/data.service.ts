@@ -1,5 +1,11 @@
 import { Injectable } from "@angular/core";
-import { FormArray, FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatDialog } from "@angular/material/dialog";
 
@@ -29,9 +35,9 @@ export class DataService {
 
   initForm() {
     this.initFormGroup = this._formBuilder.group({
-      numberAlternatives: [""],
-      numberCriteria: [""],
-      numberLT: [""]
+      numberAlternatives: ["", Validators.min(3)],
+      numberCriteria: ["", Validators.min(3)],
+      numberLT: ["", Validators.min(3)]
     });
   }
 
@@ -131,11 +137,7 @@ export class DataService {
   }
 
   openChart() {
-    const dialogRef = this.dialog.open(ChartComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    this.dialog.open(ChartComponent);
   }
 
   randomInteger(min, max) {
@@ -158,25 +160,32 @@ export class DataService {
         this.expertMatrixForm.get(e).setValue(`${data[index]}`);
       }
       if (sCase === 1) {
-        const index = this.randomInteger(1, data.length - 1);
+        const index = this.randomInteger(0, data.length - 2);
         this.expertMatrixForm.get(e).setValue(`above ${data[index]}`);
       }
       if (sCase === 2) {
-        const index = this.randomInteger(0, data.length - 2);
+        const index = this.randomInteger(1, data.length - 1);
         this.expertMatrixForm.get(e).setValue(`below ${data[index]}`);
       }
       if (sCase === 3) {
-        const index = this.randomInteger(0, data.length - 1);
-        const index1 = this.randomInteger(0, data.length - 1);
-        this.expertMatrixForm
-          .get(e)
-          .setValue(`within ${data[index1]} and ${data[index]}`);
+        let index = this.randomInteger(0, data.length - 1);
+        let index1 = this.randomInteger(0, data.length - 1);
+        if (index1 !== index) {
+          this.expertMatrixForm
+            .get(e)
+            .setValue(`within ${data[index1]} and ${data[index]}`);
+        } else {
+          this.expertMatrixForm
+            .get(e)
+            .setValue(`within ${data[0]} and ${data[1]}`);
+        }
       }
     });
   }
 
   checkExpertMatrix(stepper) {
     let valid = true;
+    let logical = true;
     const form = this.linguisticTermsForm.value;
     const data = [];
 
@@ -200,11 +209,13 @@ export class DataService {
         }
         if (data.indexOf(terms[1]) !== -1) {
           const subInx = data.indexOf(terms[1]);
-          console.log(subInx);
-          if (terms[0] === "above" && subInx <= 0) {
+
+          if (terms[0] === "below" && subInx <= 0) {
+            logical = false;
             valid = false;
           }
-          if (terms[0] === "below" && subInx >= data.length) {
+          if (terms[0] === "above" && subInx >= data.length - 1) {
+            logical = false;
             valid = false;
           }
         }
@@ -221,6 +232,10 @@ export class DataService {
         if (data.indexOf(terms[3]) === -1) {
           valid = false;
         }
+        if (terms[3] === terms[1]) {
+          logical = false;
+          valid = false;
+        }
       } else {
         valid = false;
       }
@@ -229,7 +244,7 @@ export class DataService {
       this.setIntervalMatrix();
       stepper.next();
     } else {
-      this._snackBar.open("Invalid data.", null, {
+      this._snackBar.open(logical ? "Invalid data." : "Logic error", null, {
         duration: 2000
       });
     }
@@ -276,12 +291,12 @@ export class DataService {
             const subIx = data.indexOf(terms[1]);
             if ("above" === terms[0]) {
               sub[e] = {
-                data: `{ ${data[subIx - 1]} ${terms[1]} }`,
+                data: `{ ${terms[1]} ${data[subIx + 1]} }`,
                 id: `${i}_${ix}`
               };
             } else if ("below" === terms[0]) {
               sub[e] = {
-                data: `{ ${terms[1]} ${data[subIx + 1]} }`,
+                data: `{ ${data[subIx - 1]} ${terms[1]} }`,
                 id: `${i}_${ix}`
               };
             } else {
