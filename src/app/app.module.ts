@@ -32,6 +32,7 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatNativeDateModule } from "@angular/material/core";
 
 import { CdkStepperModule } from "@angular/cdk/stepper";
+import { ChartsModule } from "ng2-charts";
 
 import { A11yModule } from "@angular/cdk/a11y";
 import { ClipboardModule } from "@angular/cdk/clipboard";
@@ -108,7 +109,8 @@ import { ChartComponent } from "./pages/chart/chart.component";
     MatSortModule,
     MatGridListModule,
     MatSidenavModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    ChartsModule
   ],
   declarations: [
     AppComponent,

@@ -34,6 +34,33 @@ export class DataService {
     return this.linguisticTerms.at(index) as FormGroup;
   }
 
+  getNormLinguisticTerms() {
+    const form = this.linguisticTerms.controls;
+    const data = [];
+    const data1D = [];
+
+    form.forEach(e => {
+      data.push([
+        e.value.range.low,
+        e.value.range.medium,
+        e.value.range.height
+      ]);
+      data1D.push(e.value.range.low);
+      data1D.push(e.value.range.medium);
+      data1D.push(e.value.range.height);
+    });
+
+    const min = Math.min(...data1D);
+    const max = Math.max(...data1D);
+
+    return data.map(e => {
+      const sub = e.map(el => {
+        return (el - min) / (max - min);
+      });
+      return sub;
+    });
+  }
+
   private getLinguisticTerm(): FormGroup {
     return this._formBuilder.group({
       fullName: [""],
