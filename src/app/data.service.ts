@@ -26,6 +26,10 @@ export class DataService {
     columns: Array<string>;
     dataSource: any;
   };
+  trapezoidalMatrixTable: {
+    columns: Array<string>;
+    dataSource: any;
+  };
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -181,6 +185,72 @@ export class DataService {
         }
       }
     });
+  }
+
+  setTrapezoidalMatrix() {
+    this.trapezoidalMatrixTable = null;
+    const numberCriteria = this.initFormGroup.get("numberCriteria").value;
+    const numberAlternatives = this.initFormGroup.get("numberAlternatives")
+      .value;
+
+    const data = [];
+
+    this.linguisticTermsForm.value.forEach(e => {
+      data.push(e.shortName);
+    });
+
+    const columns = ["none"];
+    const dataSource = [];
+    for (let i = 0; i < numberCriteria; i++) {
+      columns.push(`Q${i + 1}`);
+    }
+    const intervalData = this.intervalMatrixTable.dataSource;
+    const normList = this.getNormLinguisticTerms();
+    for (let i = 0; i < numberAlternatives; i++) {
+      const sub = {};
+      columns.forEach((e, ix) => {
+        if (e === "none") {
+          sub[e] = {
+            data: `E${i + 1}`,
+            start: true,
+            id: `${i}_${ix}`
+          };
+        } else {
+          const el = (Object.values(intervalData[i]).find(
+            (e: any) => e.id === `${i}_${ix}`
+          ) as any).data;
+          const elements = el.substring(2, el.length - 2).split(" ");
+          let res = [];
+
+          if (elements.length === 1) {
+            const inx = data.indexOf(elements[0]);
+            res = normList[inx];
+            sub[e] = {
+              data: `[ ${res[0]} ${res[1]} ${res[1]} ${res[res.length - 1]} ]`,
+              id: `${i}_${ix}`
+            };
+          } else {
+            elements.forEach(e => {
+              const inx = data.indexOf(e);
+              res = [...res, ...normList[inx]];
+            });
+
+            sub[e] = {
+              data: `[ ${res[0]} ${res[1]} ${res[res.length - 2]} ${
+                res[res.length - 1]
+              } ]`,
+              id: `${i}_${ix}`
+            };
+          }
+        }
+      });
+      dataSource.push(sub);
+    }
+    console.log(normList);
+    this.trapezoidalMatrixTable = {
+      columns,
+      dataSource
+    };
   }
 
   checkExpertMatrix(stepper) {

@@ -59,6 +59,7 @@ import { LinguisticTermsComponent } from "./pages/linguistic-terms/linguistic-te
 import { ChartComponent } from "./pages/chart/chart.component";
 import { ExpertMatrixComponent } from "./pages/expert-matrix/expert-matrix.component";
 import { IntervalMatrixComponent } from "./pages/interval-matrix/interval-matrix.component";
+import { TrapezoidalMatrixComponent } from "./pages/trapezoidal-matrix/trapezoidal-matrix.component";
 
 @NgModule({
   imports: [
@@ -120,7 +121,8 @@ import { IntervalMatrixComponent } from "./pages/interval-matrix/interval-matrix
     LinguisticTermsComponent,
     ChartComponent,
     ExpertMatrixComponent,
-    IntervalMatrixComponent
+    IntervalMatrixComponent,
+    TrapezoidalMatrixComponent
   ],
   bootstrap: [AppComponent],
   entryComponents: [ChartComponent]
