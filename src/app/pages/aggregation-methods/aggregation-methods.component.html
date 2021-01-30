@@ -1,0 +1,26 @@
+<form [formGroup]="dataService.aggregationMethodsForm" *ngIf="dataService.aggregationMethodsForm">
+	<label id="example-radio-group-label">Pick your favorite method</label>
+	<mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="method">
+		<mat-radio-button class="example-radio-button" *ngFor="let method of methods" [value]="method">
+			{{method}}
+		</mat-radio-button>
+	</mat-radio-group>
+	<mat-form-field>
+		<mat-label>Alpha</mat-label>
+		<input
+      matInput
+      placeholder="for example: 8"
+      formControlName="alpha"
+      type="number"
+      required
+    />
+  </mat-form-field>
+</form>
+<div class="bottom-btn" style="margin-top: 10px;">
+	<button mat-stroked-button (click)="dataService.openChart()">
+    <mat-icon>bar_chart</mat-icon>
+  </button>
+	<button mat-stroked-button matStepperNext (click)="dataService.calcMethod()">
+  Calculate
+  </button>
+</div>

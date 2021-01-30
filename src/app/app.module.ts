@@ -60,6 +60,8 @@ import { ChartComponent } from "./pages/chart/chart.component";
 import { ExpertMatrixComponent } from "./pages/expert-matrix/expert-matrix.component";
 import { IntervalMatrixComponent } from "./pages/interval-matrix/interval-matrix.component";
 import { TrapezoidalMatrixComponent } from "./pages/trapezoidal-matrix/trapezoidal-matrix.component";
+import { AggregationMethodsComponent } from "./pages/aggregation-methods/aggregation-methods.component";
+import { CalcResComponent } from "./pages/calc-res/calc-res.component";
 
 @NgModule({
   imports: [
@@ -122,7 +124,9 @@ import { TrapezoidalMatrixComponent } from "./pages/trapezoidal-matrix/trapezoid
     ChartComponent,
     ExpertMatrixComponent,
     IntervalMatrixComponent,
-    TrapezoidalMatrixComponent
+    TrapezoidalMatrixComponent,
+    AggregationMethodsComponent,
+    CalcResComponent
   ],
   bootstrap: [AppComponent],
   entryComponents: [ChartComponent]

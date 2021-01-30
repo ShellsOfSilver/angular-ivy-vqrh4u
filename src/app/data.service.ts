@@ -16,6 +16,7 @@ import { ChartComponent } from "./pages/chart/chart.component";
 })
 export class DataService {
   initFormGroup: FormGroup;
+  aggregationMethodsForm: FormGroup;
   linguisticTermsForm: FormArray;
   expertMatrixForm: FormGroup;
   expertMatrixTable: {
@@ -95,6 +96,21 @@ export class DataService {
     for (let i = 0; i < col; i++) {
       this.linguisticTermsForm.push(this.getLinguisticTerm());
     }
+  }
+
+  setAggregationMethods() {
+    this.aggregationMethodsForm = this._formBuilder.group({
+      alpha: [0.5, [Validators.min(0), Validators.max(1)]],
+      method: ["", Validators.required]
+    });
+  }
+
+  setConclusion() {
+    console.log("--------------");
+  }
+
+  calcMethod() {
+    console.log("--------------");
   }
 
   getLinguisticTermByIndex(index: number) {

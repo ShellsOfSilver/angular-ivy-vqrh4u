@@ -13,4 +13,29 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.dataService.initForm();
   }
+
+  test(stepper) {
+    setTimeout(() => {
+      this.dataService.setInitRandom();
+      setTimeout(() => {
+        this.dataService.setLinguisticTerms();
+        stepper.next();
+        this.dataService.setLinguisticRandom();
+        setTimeout(() => {
+          this.dataService.setExpertMatrix();
+          stepper.next();
+          this.dataService.setMatrixRandom();
+          setTimeout(() => {
+            this.dataService.checkExpertMatrix(stepper);
+            setTimeout(() => {
+              this.dataService.setTrapezoidalMatrix();
+              stepper.next();
+              stepper.next();
+              this.dataService.setAggregationMethods();
+            }, 300);
+          }, 300);
+        }, 300);
+      }, 300);
+    });
+  }
 }
