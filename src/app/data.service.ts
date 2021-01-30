@@ -1,5 +1,8 @@
 import { Injectable } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { MatDialog } from "@angular/material/dialog";
+
+import { ChartComponent } from "./pages/chart/chart.component";
 
 @Injectable({
   providedIn: "root"
@@ -8,7 +11,7 @@ export class DataService {
   initFormGroup: FormGroup;
   linguisticTerms: FormArray;
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder, public dialog: MatDialog) {}
 
   initForm() {
     this.initFormGroup = this._formBuilder.group({
@@ -40,6 +43,14 @@ export class DataService {
         medium: [""],
         height: [""]
       })
+    });
+  }
+
+  openChart() {
+    const dialogRef = this.dialog.open(ChartComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
     });
   }
 
