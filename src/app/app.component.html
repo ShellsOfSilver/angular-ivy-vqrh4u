@@ -32,9 +32,16 @@
 	<mat-step>
 		<ng-template matStepLabel>Conclusion</ng-template>
 		<p>You are now done.</p>
-		<div>
-			<button mat-button matStepperPrevious>Back</button>
-			<button mat-button (click)="stepper.reset()">Reset</button>
+		<mat-form-field style="width: 100%;">
+			<mat-label>Conclusion</mat-label>
+			<textarea matInput [(ngModel)]="dataService.conclusion" placeholder="Conclusion"></textarea>
+		</mat-form-field>
+		<div class="bottom-btn" style="margin-top: 10px;">
+			<button mat-stroked-button (click)="dataService.openChart()">
+    <mat-icon>bar_chart</mat-icon>
+  </button>
+			<button  mat-stroked-button matStepperPrevious>Back</button>
+			<button  mat-stroked-button (click)="stepper.reset()">Reset</button>
 		</div>
 	</mat-step>
 </mat-vertical-stepper>

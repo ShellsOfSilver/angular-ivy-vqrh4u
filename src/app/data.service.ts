@@ -35,6 +35,7 @@ export class DataService {
     columns: Array<string>;
     dataSource: any;
   };
+  conclusion: string;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -105,12 +106,30 @@ export class DataService {
   setAggregationMethods() {
     this.aggregationMethodsForm = this._formBuilder.group({
       alpha: [0.5, [Validators.min(0), Validators.max(1)]],
-      method: ["Pessimistic position", Validators.required]
+      method: ["Aggregation of generalized trapezoidal LT", Validators.required]
     });
   }
 
-  setConclusion() {
-    console.log("--------------");
+  setConclusion(prob) {
+    console.log(prob);
+    const maxV = Math.max.apply(
+      Math,
+      prob.map(function(o) {
+        return o.res;
+      })
+    );
+    const resAlt = [];
+    prob.forEach(e => {
+      if (e.res === maxV) {
+        resAlt.push(e.alt);
+      }
+    });
+    const method = this.aggregationMethodsForm.value;
+    this.conclusion = `As a result of performing the method '${
+      method.method
+    }' the best alternative is the alternative '${resAlt.join(
+      ", "
+    )}' with a probability of ${maxV.toFixed(2)}`;
   }
 
   calcMethod() {
@@ -161,7 +180,8 @@ export class DataService {
       dataSource.push(sub);
     }
 
-    console.log(alpha);
+    const prob = [];
+
     switch (method.method) {
       case "Aggregation of generalized trapezoidal LT":
         console.log(1);
@@ -199,6 +219,11 @@ export class DataService {
             0,
             1 - Math.max(0, (1 - res[0]) / (res[1] - res[0] + 1))
           );
+
+          prob.push({
+            res: calc,
+            alt: dataSource[i]["none"].data
+          });
 
           dataSource[i]["Probability"] = {
             data: `${calc.toFixed(2)}`,
@@ -240,6 +265,11 @@ export class DataService {
             1 - Math.max(0, (1 - res[0]) / (res[1] - res[0] + 1))
           );
 
+          prob.push({
+            res: calc,
+            alt: dataSource[i]["none"].data
+          });
+
           dataSource[i]["Probability"] = {
             data: `${calc.toFixed(2)}`,
             id: `${i}_${dataSource.length + 1}`
@@ -252,6 +282,7 @@ export class DataService {
       columns,
       dataSource
     };
+    this.setConclusion(prob);
   }
 
   getLinguisticTermByIndex(index: number) {
