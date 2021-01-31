@@ -105,7 +105,7 @@ export class DataService {
   setAggregationMethods() {
     this.aggregationMethodsForm = this._formBuilder.group({
       alpha: [0.5, [Validators.min(0), Validators.max(1)]],
-      method: ["Aggregation of generalized trapezoidal LT", Validators.required]
+      method: ["Pessimistic position", Validators.required]
     });
   }
 
@@ -167,10 +167,84 @@ export class DataService {
         console.log(1);
         break;
       case "Pessimistic position":
-        console.log(1.1);
+        const col1 = "Pessimistic fuzzy interval";
+        columns.push(col1);
+        columns.push("Probability");
+
+        for (let i = 0; i < numberAlternatives; i++) {
+          const el = dataSource[i];
+          const res = [1, 1];
+
+          Object.keys(el).forEach(key => {
+            if (!el[key].start) {
+              const elements = el[key].data
+                .substring(2, el[key].data.length - 2)
+                .split(" ");
+
+              if (res[0] > +elements[0]) {
+                res[0] = +elements[0];
+              }
+
+              if (res[1] > +elements[1]) {
+                res[1] = +elements[1];
+              }
+            }
+          });
+          dataSource[i][col1] = {
+            data: `[ ${res.join(" ")} ]`,
+            id: `${i}_${dataSource.length}`
+          };
+
+          const calc = Math.max(
+            0,
+            1 - Math.max(0, (1 - res[0]) / (res[1] - res[0] + 1))
+          );
+
+          dataSource[i]["Probability"] = {
+            data: `${calc.toFixed(2)}`,
+            id: `${i}_${dataSource.length + 1}`
+          };
+        }
         break;
       case "Optimistic position":
-        console.log(2);
+        const col2 = "Optimistic fuzzy interval";
+        columns.push(col2);
+        columns.push("Probability");
+
+        for (let i = 0; i < numberAlternatives; i++) {
+          const el = dataSource[i];
+          const res = [0, 0];
+
+          Object.keys(el).forEach(key => {
+            if (!el[key].start) {
+              const elements = el[key].data
+                .substring(2, el[key].data.length - 2)
+                .split(" ");
+
+              if (res[0] < +elements[0]) {
+                res[0] = +elements[0];
+              }
+
+              if (res[1] < +elements[1]) {
+                res[1] = +elements[1];
+              }
+            }
+          });
+          dataSource[i][col2] = {
+            data: `[ ${res.join(" ")} ]`,
+            id: `${i}_${dataSource.length}`
+          };
+
+          const calc = Math.max(
+            0,
+            1 - Math.max(0, (1 - res[0]) / (res[1] - res[0] + 1))
+          );
+
+          dataSource[i]["Probability"] = {
+            data: `${calc.toFixed(2)}`,
+            id: `${i}_${dataSource.length + 1}`
+          };
+        }
         break;
     }
 
