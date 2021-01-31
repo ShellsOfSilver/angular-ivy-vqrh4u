@@ -184,7 +184,67 @@ export class DataService {
 
     switch (method.method) {
       case "Aggregation of generalized trapezoidal LT":
-        console.log(1);
+        const colGS = "GS";
+        const col11 = "Fuzzy interval";
+        columns.push(colGS);
+        columns.push(col11);
+        columns.push("Probability");
+        for (let i = 0; i < numberAlternatives; i++) {
+          const trapezoid = Object.values(
+            this.trapezoidalMatrixTable.dataSource[i]
+          )
+            .filter((kk: any) => !kk.start)
+            .map((kk: any) =>
+              kk.data.substring(2, kk.data.length - 2).split(" ")
+            );
+          const gs = [1, 1, 0, 0];
+
+          trapezoid.forEach(k => {
+            console.log(k);
+            if (gs[0] > +k[0]) {
+              gs[0] = +k[0];
+            }
+            if (gs[1] > +k[1]) {
+              gs[1] = +k[1];
+            }
+            if (gs[2] < +k[2]) {
+              gs[2] = +k[2];
+            }
+            if (gs[3] < +k[3]) {
+              gs[3] = +k[3];
+            }
+          });
+
+          const fuzz = [
+            +(alpha * (+gs[1] - +gs[0]) + +gs[0]).toFixed(3),
+            +(+gs[3] - alpha * (+gs[3] - +gs[2])).toFixed(3)
+          ];
+
+          dataSource[i][colGS] = {
+            data: `[ ${gs.join(" ")} ]`,
+            id: `${i}_${dataSource.length}`
+          };
+
+          dataSource[i][col11] = {
+            data: `[ ${fuzz.join(" ")} ]`,
+            id: `${i}_${dataSource.length}`
+          };
+
+          const calc = Math.max(
+            0,
+            1 - Math.max(0, (1 - fuzz[0]) / (fuzz[1] - fuzz[0] + 1))
+          );
+
+          prob.push({
+            res: calc,
+            alt: dataSource[i]["none"].data
+          });
+
+          dataSource[i]["Probability"] = {
+            data: `${calc.toFixed(2)}`,
+            id: `${i}_${dataSource.length}`
+          };
+        }
         break;
       case "Pessimistic position":
         const col1 = "Pessimistic fuzzy interval";
